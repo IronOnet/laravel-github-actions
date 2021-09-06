@@ -33,5 +33,18 @@ jobs:
         DB_CONNECTION: sqlite
         DB_DATABASE: database/database.sqlite
       run: vendor/bin/phpunit
-      
-    
+
+  deploy:
+      runs-on: ubuntu-20.04
+
+      steps:
+          - name: Checkout
+            uses: actions/checkout@v2
+          - name: Deployment
+            uses: appleboy/ssh-action@main
+
+            with:
+              host: ${{secrets.SSH_HOST}}
+              key: ${{secrets.SSH_PRIVATE_KEY}}
+
+
